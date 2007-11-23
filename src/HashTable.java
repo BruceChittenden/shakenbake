@@ -93,7 +93,7 @@ public class HashTable implements StringCounter
 	private HashEntry contains(String s)
 	{
 		for(int i = 0; i < tableSize; i++)
-			if(table[i].key.compare(s) == 0)
+			if(table[i] != null && table[i].key.compareTo(s) == 0)
 				return table[i];
 		
 		return null;
@@ -101,7 +101,7 @@ public class HashTable implements StringCounter
 	
 	private int insert(String s)
 	{
-		int hash = hash(s);
+		int hash = hash(s,tableSize);
 		
 		if(table[hash] == null)
 			table[hash] = new HashEntry(s);
@@ -133,11 +133,12 @@ public class HashTable implements StringCounter
 		HashEntry entry = contains(s);
 		
 		if(entry == null)
+		{
 			insert(s);
+			numEntries++;
+		}
 		else
 			entry.value++;
-		
-		numEntries++;
 	}
 
 	// GetSize returns the number of strings
@@ -174,7 +175,7 @@ public class HashTable implements StringCounter
 		
 		for(int i = 0; i < entries; i++, insert++)
 		{
-			if(s.s.compare(array[i]) <= 0)
+			if(s.str.compareTo(array[i].str) <= 0)
 				break;
 		}
 		
@@ -187,5 +188,36 @@ public class HashTable implements StringCounter
 			
 			array[insert] = s;
 		}
+	}
+	
+	public static void main(String[] args)
+	{
+		System.out.println("HashTable Testing");
+		
+		HashTable table = new HashTable();
+		
+		table.IncCount("hello");
+		table.IncCount("hello");
+		
+		table.IncCount("world");
+		table.IncCount("world");
+		table.IncCount("world");
+		table.IncCount("world");
+		
+		table.IncCount("Happy Thanksgiving!");
+		table.IncCount("Happy Thanksgiving!");
+		table.IncCount("Happy Thanksgiving!");
+		
+		StringCount[] counts = table.GetCounts();
+		
+		for(int i = 0; i<counts.length; i++)
+		{
+			if(counts[i] != null)
+				System.out.print("[" + counts[i].str +"," + counts[i].cnt + "], ");
+			else
+				System.out.print("NULL!!!!! " + i);
+		}
+		
+		
 	}
 }
