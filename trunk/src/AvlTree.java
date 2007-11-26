@@ -14,13 +14,16 @@ public class AvlTree implements StringCounter
 		Node left, right;
 		String str;
 		int cnt;
+		int height;
 
 		Node(String s) 
 		{
 			str = s;
 			cnt = 1;
 			left = right = null;
-			size++; // note use of inner class
+			height = 0;
+			
+			size++; // note use of inner class	
 		}
 	}
 	
@@ -44,16 +47,108 @@ public class AvlTree implements StringCounter
 		if(compare < 0)
 		{
 			root.left = insert(s, root.left);
+			
+			root.height = Math.max(root.left.height, root.right.height) + 1;
+			
+			// check if we need to rotate
+			if(Math.abs(root.left.height - root.right.height) >= 2)
+			{
+				// check if it's zig-zig or zig-zag
+				if(s.compareTo(root.left.str) < 0)
+				{
+					// zig-zig
+					Node left, middle;
+					left = root.left;
+					middle = root;
+					
+					middle.left = left.right;
+					left.right = middle;
+					
+					root = left;
+					
+					// fix heights
+					middle.height = Math.max(middle.left.height, middle.right.height) + 1;
+					left.height = Math.max(left.left.height, left.right.height) + 1;
+				
+				}
+				else
+				{
+					// zig-zag
+					Node middle, left, leftRight;
+					middle = root;
+					left = root.left;
+					leftRight = left.right;
+					
+					left.right = leftRight.left;
+					middle.left = leftRight.right;
+					leftRight.left = left;
+					leftRight.right = middle;
+					
+					root = leftRight;
+					
+					//fix heights
+					middle.height = Math.max(middle.left.height, middle.right.height) + 1;
+					left.height = Math.max(left.left.height, left.right.height) + 1;
+					leftRight.height = Math.max(leftRight.left.height, leftRight.right.height) + 1;
+				}
+			}
+			else
+				root.height = Math.max(root.left.height, root.right.height) + 1;
 		}
 		else if(compare > 0)
 		{
 			root.right = insert(s, root.right);
+			
+			// check if we need to rotate
+			if(Math.abs(root.left.height - root.right.height) >= 2)
+			{
+				// check if it's zig-zig or zig-zag
+				if(s.compareTo(root.right.str) > 0)
+				{
+					// zig-zig
+					Node right, middle;
+					right = root.right;
+					middle = root;
+					
+					middle.right = right.left;
+					right.left = middle;
+					
+					root = right;
+					
+					// fix heights
+					middle.height = Math.max(middle.left.height, middle.right.height) + 1;
+					right.height = Math.max(right.left.height, right.right.height) + 1;
+				}
+				else
+				{
+					// zig-zag
+					Node middle, right, rightLeft;
+					middle = root;
+					right = root.right;
+					rightLeft = right.left;
+					
+					right.left = rightLeft.right;
+					middle.right = rightLeft.left;
+					rightLeft.right = right;
+					rightLeft.left = middle;
+					
+					root = rightLeft;
+					
+					//fix heights
+					middle.height = Math.max(middle.left.height, middle.right.height) + 1;
+					right.height = Math.max(right.left.height, right.right.height) + 1;
+					rightLeft.height = Math.max(rightLeft.left.height, rightLeft.right.height) + 1;
+				}
+			}
+			else
+				root.height = Math.max(root.left.height, root.right.height) + 1;
 		}
 		else
 		{
 			root.cnt++;
-			return root;
 		}
+	
+		return root;
 	}
 	
 	// GetSize returns the number of strings
