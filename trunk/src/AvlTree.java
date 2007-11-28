@@ -30,7 +30,7 @@ public class AvlTree implements StringCounter
 	// IncCount increments the count for a particular string
 	public void IncCount(String s)
 	{
-		insert(s, root);
+		root = insert(s, root);
 	}
 
 	// recursive helper for IncCount -- NOT DONE! DOESN'T BALANCE
@@ -182,5 +182,62 @@ public class AvlTree implements StringCounter
 		index = GetCounts(root.right, counts, index);
 		
 		return index;
+	}
+	
+	public static void main(String[] args)
+	{
+		System.out.println("AVL Tree Testing");
+		
+		HashTable table = new HashTable();
+		
+		table.IncCount("hello");
+		table.IncCount("hello");
+		
+		table.IncCount("world");
+		table.IncCount("world");
+		table.IncCount("world");
+		table.IncCount("world");
+		
+		table.IncCount("Happy Thanksgiving!");
+		table.IncCount("Happy Thanksgiving!");
+		table.IncCount("Happy Thanksgiving!");
+		
+		table.IncCount("Food");
+		table.IncCount("Food");
+		table.IncCount("Food");
+		table.IncCount("Food");
+		table.IncCount("Food");
+		table.IncCount("Food");
+		table.IncCount("Food");
+		
+		table.IncCount("cool");
+		
+		table.IncCount("Assignment due");
+		table.IncCount("Assignment due");
+		
+		table.IncCount("Wednesday");
+		
+		table.IncCount("night");
+		table.IncCount("night");
+		
+		table.IncCount("at");
+		
+		table.IncCount("TWELVE!!!");
+		table.IncCount("TWELVE!!!");
+		table.IncCount("TWELVE!!!");
+		table.IncCount("TWELVE!!!");
+		table.IncCount("TWELVE!!!");
+		
+		StringCount[] counts = table.GetCounts();
+		
+		for(int i = 0; i<counts.length; i++)
+		{
+			if(counts[i] != null)
+				System.out.print("[" + counts[i].str +"," + counts[i].cnt + "], ");
+			else
+				System.out.print("NULL!!!!! " + i);
+		}
+		
+		
 	}
 }
