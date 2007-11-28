@@ -44,6 +44,8 @@ public class WordCount {
 
     StringCount[] cnt = SC.GetCounts();
     if (cnt != null && freq) {
+    	
+    	//create a mergesort
       for (int i = 1; i < cnt.length; i++) {
         StringCount x = cnt[i];
         int j;
