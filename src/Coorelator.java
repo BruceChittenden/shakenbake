@@ -44,11 +44,55 @@ public class Coorelator {
 	}
 
 	private static void coorelate( String file1, String file2, StringCounter data, StringCounter data2  ) {
-		WordCount.countWords( file1, data, false, false );
-		WordCount.countWords( file2, data2, false, false );
+		countWords ( file1, data );
+		countWords ( file2, data2 );
+		StringCount[] cnt = data.GetCounts();
+		StringCount[] cnt2 = data2.GetCounts();
+		int total1 = cnt.length;
+		int total2 = cnt2.length;
+		double freq, freq2;
+		double sum =0 ;
+		for ( StringCount sc : cnt ) {
+			int searchResult = binarySearch ( cnt2, sc.str, 0, cnt2.length-1 );
+			if ( searchResult > -1 ) {				
+				freq = sc.cnt / (double) total1;
+				freq2 = cnt2[searchResult].cnt / (double) total2;
+				if ( Math.abs( freq - freq2 ) <= .01 && Math.abs( freq - freq2 ) > .0001 )
+					sum += Math.pow( Math.abs( freq - freq2 ), 2 );
+			}
+		}
+		System.out.println("Coorelate: " + sum  );
+	}
+	
+	
+	private static int binarySearch(StringCount[] list, String key, int low, int high) {
+		while (low <= high) {
+			int mid = (low + high) / 2;
+			String midVal = list[mid].str;
 
+			if ( midVal.compareTo( key ) < 0) {
+				low = mid + 1;
+			} else if ( midVal.compareTo( key ) > 0 ) {
+				high = mid - 1;
+			} else {
+				return mid; // key found
+			}
+		}
+		return -(low + 1); // key not found.
 	}
 
+	private static void countWords( String file, StringCounter SC ) {
+		 try {
+		      String word;
+		      FileWordReader fwr = new FileWordReader(file);
+		      while((word=fwr.nextWord())!=null)
+		        SC.IncCount(word);
+		    } catch (Throwable error) {
+		      System.err.println( "Error processing \n" + file + error);
+		      System.exit(1);
+		    }
+
+	}
 	/**
 	 * Prints the Usage to standard error.
 	 */
