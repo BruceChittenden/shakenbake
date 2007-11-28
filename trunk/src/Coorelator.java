@@ -1,4 +1,19 @@
+/**
+ * Alex Meng
+ * CSE326 Project 3
+ * File: Coorelator.java
+ * 
+ * This class is designed to find a coorelation between two given files based on the frequency of words.
+ * 
+ * @author alexm
+ */
 
+/**
+ * 
+ * The Coorelator class is intended to be used to compare two text files and create a list of words and their frequency
+ * in the text file. After counting, it attempts to find any coorelation between the freqency of words amongst the
+ * two files.
+ */
 public class Coorelator {
 
 	/**
@@ -8,6 +23,7 @@ public class Coorelator {
 
 		StringCounter data;
 		StringCounter data2;
+		
 		// Check basic argument validity and print usage information.
 		if(args.length < 3) {
 			printUsage();
@@ -43,13 +59,23 @@ public class Coorelator {
 		coorelate(filename1, filename2, data, data2);
 	}
 
-	private static void coorelate( String file1, String file2, StringCounter data, StringCounter data2  ) {
+	/**
+	 * This counts the frequency of words for each respective file then attempts to find a coorelation between
+	 * the two respective files. It prints out a coorelation value that is based on LSI.
+	 */
+	public static void coorelate( String file1, String file2, StringCounter data, StringCounter data2  ) {
+		//counts the number of words and their respective frequency.
 		countWords ( file1, data );
+		//counts the number of words and their respective frequency.
 		countWords ( file2, data2 );
+		
 		StringCount[] cnt = data.GetCounts();
 		StringCount[] cnt2 = data2.GetCounts();
+		
+		//retrieves the total number of unique words
 		int total1 = cnt.length;
 		int total2 = cnt2.length;
+		
 		double freq, freq2;
 		double sum =0 ;
 		for ( StringCount sc : cnt ) {
@@ -61,6 +87,7 @@ public class Coorelator {
 					sum += Math.pow( Math.abs( freq - freq2 ), 2 );
 			}
 		}
+		//Prints out the coorelation value which ranges [0.0, 1.0]
 		System.out.println("Coorelate: " + sum  );
 	}
 	
