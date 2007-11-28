@@ -6,7 +6,8 @@ public class Coorelator {
 	 */
 	public static void main(String[] args) {
 
-		StringCounter structure;
+		StringCounter data;
+		StringCounter data2;
 		// Check basic argument validity and print usage information.
 		if(args.length < 3) {
 			printUsage();
@@ -16,30 +17,36 @@ public class Coorelator {
 		String filename2 = args[2];
 
 		if( args[0].equals("-b") ) {		
-			structure = new BST();			
+			data = new BST();
+			data2 = new BST();
 		}
 
 		else if( args[0].equals("-a") ) {
 			
-			structure = new AvlTree();
+			data = new AvlTree();
+			data2 = new AvlTree();
 		}
 		
 		else if( args[0].equals("-s") ) {
-			structure = new SplayTree();
+			data = new SplayTree();
+			data2 = new SplayTree();
 			
 		}
 		else if( args[0].equals("-h") ) {
-			structure = new HashTable();
+			data = new SplayTree();
+			data2 = new SplayTree();
 		}
 		else {
 			printUsage();
 			return;
 		}
-		coorelate(filename1, filename2, structure);
+		coorelate(filename1, filename2, data, data2);
 	}
 
-	private static void coorelate( String file1, String file2, StringCounter data ) {
-		
+	private static void coorelate( String file1, String file2, StringCounter data, StringCounter data2  ) {
+		WordCount.countWords( file1, data, false, false );
+		WordCount.countWords( file2, data2, false, false );
+
 	}
 
 	/**
