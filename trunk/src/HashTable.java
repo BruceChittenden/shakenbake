@@ -1,9 +1,20 @@
+// HashTable
+// Eriel Thomas
+// This class is a Hash Table that implements the StringCounter interface.
+
 public class HashTable implements StringCounter
 {
+	// the array of HashEntry that serves as our table
 	private HashEntry[] table;
+	
+	// the size of the table
 	private int tableSize;
+	
+	// the number of entries in the table
 	private int numEntries;
 	
+	// HashEntry
+	// a class to store the keys and counts in the table
 	private static class HashEntry
 	{
 		public String key;
@@ -16,6 +27,7 @@ public class HashTable implements StringCounter
 		}
 	}
 	
+	// HashTable
 	// constructor to initialize the table
 	public HashTable()
 	{
@@ -24,30 +36,46 @@ public class HashTable implements StringCounter
 		table = new HashEntry[tableSize];
 	}
 	
-	// return true if num is prime, otherwise false
-	private boolean isPrime(int num)
+	
+	// Prime finding functions from Peter
+	/**
+	 * Internal method to find a prime number at least as large as n.
+	 * @param n the starting number (must be positive).
+	 * @return a prime number larger than or equal to n.
+	 */
+	private static int nextPrime( int n )
 	{
-		if(num % 2 == 0 && num != 2)
+		if( n % 2 == 0 )
+			n++;
+
+		for( ; !isPrime( n ); n += 2 )
+			;
+
+		return n;
+	}
+
+	/**
+	 * Internal method to test if a number is prime.
+	 * Not an efficient algorithm.
+	 * @param n the number to test.
+	 * @return the result of the test.
+	 */
+	private static boolean isPrime( int n )
+	{
+		if( n == 2 || n == 3 )
+			return true;
+
+		if( n == 1 || n % 2 == 0 )
 			return false;
-		
-		int mid = (int)Math.sqrt(num);
-		
-		for(int i = 3; i < mid; i++)
-			if(num%i == 0)
+
+		for( int i = 3; i * i <= n; i += 2 )
+			if( n % i == 0 )
 				return false;
-		
+
 		return true;
 	}
 	
-	// returns the next prime number after num
-	private int nextPrime(int num)
-	{
-		int prime = num+1;
-		for(; !isPrime(prime); prime++);
-		
-		return prime;
-	}
-	
+	// hash
 	// a hash routine for string objects
 	// it takes a string to hash, the tableSize, and returns the hash value
 	private int hash(String key, int tableSize)
@@ -65,6 +93,7 @@ public class HashTable implements StringCounter
 		return hashVal;
 	}
 	
+	// rehashTable
 	// rehashes the table by doubling the size
 	private void rehashTable()
 	{
@@ -90,6 +119,9 @@ public class HashTable implements StringCounter
 		tableSize = newSize;
 	}
 	
+	// contains
+	// returns an entry if the string is contained in the table
+	// otherwise, null is returned
 	private HashEntry contains(String s)
 	{
 		for(int i = 0; i < tableSize; i++)
@@ -99,6 +131,8 @@ public class HashTable implements StringCounter
 		return null;
 	}
 	
+	// insert
+	// inserts string s into the table
 	private int insert(String s)
 	{
 		int hash = hash(s,tableSize);
@@ -124,7 +158,8 @@ public class HashTable implements StringCounter
 		return hash;
 	}
 	
-	// IncCount increments the count for a particular string
+	// IncCount 
+	// increments the count for a particular string
 	public void IncCount(String s) 
 	{
 		if(numEntries+1 >= tableSize)
@@ -141,13 +176,15 @@ public class HashTable implements StringCounter
 			entry.value++;
 	}
 
-	// GetSize returns the number of strings
+	// GetSize 
+	// returns the number of strings
 	public int GetSize() 
 	{
 		return numEntries;
 	}
 
-	// GetCounts returns an array of all the string-count pairs
+	// GetCounts 
+	// returns an array of all the string-count pairs
 	// in the dictionary, sorted lexicographically by strings.
 	// We've defined a StringCount container class
 	// above to store the String-int pairs.
@@ -168,6 +205,7 @@ public class HashTable implements StringCounter
 		return counts;
 	}
 	
+	// insertionSort
 	// inserts the string count s into the proper place in the array
 	public void insertionSort(StringCount s, StringCount[] array, int entries)
 	{
@@ -190,9 +228,11 @@ public class HashTable implements StringCounter
 		}
 	}
 	
+	// main
+	// a unit test to make sure that the AVL tree functions properly
 	public static void main(String[] args)
 	{
-		System.out.println("HashTable Testing");
+		System.out.println("Hash Table Testing");
 		
 		HashTable table = new HashTable();
 		
@@ -208,6 +248,32 @@ public class HashTable implements StringCounter
 		table.IncCount("Happy Thanksgiving!");
 		table.IncCount("Happy Thanksgiving!");
 		
+		table.IncCount("Food");
+		table.IncCount("Food");
+		table.IncCount("Food");
+		table.IncCount("Food");
+		table.IncCount("Food");
+		table.IncCount("Food");
+		table.IncCount("Food");
+		
+		table.IncCount("cool");
+		
+		table.IncCount("Assignment due");
+		table.IncCount("Assignment due");
+		
+		table.IncCount("Wednesday");
+		
+		table.IncCount("night");
+		table.IncCount("night");
+		
+		table.IncCount("at");
+		
+		table.IncCount("TWELVE!!!");
+		table.IncCount("TWELVE!!!");
+		table.IncCount("TWELVE!!!");
+		table.IncCount("TWELVE!!!");
+		table.IncCount("TWELVE!!!");
+		
 		StringCount[] counts = table.GetCounts();
 		
 		for(int i = 0; i<counts.length; i++)
@@ -217,7 +283,5 @@ public class HashTable implements StringCounter
 			else
 				System.out.print("NULL!!!!! " + i);
 		}
-		
-		
 	}
 }
