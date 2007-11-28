@@ -6,43 +6,40 @@ public class Coorelator {
 	 */
 	public static void main(String[] args) {
 
+		StringCounter structure;
 		// Check basic argument validity and print usage information.
-		if(args.length < 1) {
+		if(args.length < 3) {
 			printUsage();
 			return;
 		}
+		String filename1 = args[1];
+		String filename2 = args[2];
 
-		int i=0;
-
-		if( args[i].equals("-b") ) {
-			i++;
-		 //	runner = new RandomMazeRunner();
+		if( args[0].equals("-b") ) {		
+			structure = new BST();			
 		}
 
-		if( args[i].equals("-a") ) {
-			i++;
-			//runner = new BFSMazeRunner();
+		else if( args[0].equals("-a") ) {
+			
+			structure = new AvlTree();
 		}
 		
-		if( args[i].equals("-s") ) {
-			i++;
-		//	runner = new DFSMazeRunner();
-		}
-
-		if( args[i].equals("-h") ) {
-			i++;
-			if ( args[i].equals("-bin")) {
-				i++;
-			//	runner = new BestFirstMazeRunner(0,-1);
+		else if( args[0].equals("-s") ) {
+			structure = new SplayTree();
 			
-			}
-			else {
-				printUsage();
-				return;
-			}
-				
 		}
+		else if( args[0].equals("-h") ) {
+			structure = new HashTable();
+		}
+		else {
+			printUsage();
+			return;
+		}
+		coorelate(filename1, filename2, structure);
+	}
 
+	private static void coorelate( String file1, String file2, StringCounter data ) {
+		
 	}
 
 	/**
