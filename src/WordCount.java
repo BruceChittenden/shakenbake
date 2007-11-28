@@ -37,12 +37,7 @@ public class WordCount {
       System.exit(1);
     }
 
-    // Use insertion sort to sort the BST by number of occurrences.
-    // Note that we rely on GetCounts being sorted by name.  This
-    // is an example of bad coupling!  Unfortunately that's what
-    // you get using code from a "history professor".
-
-    StringCount[] cnt = SC.GetCounts();
+     StringCount[] cnt = SC.GetCounts();
     if (cnt != null && freq) {
     	
       cnt = mergeSort ( cnt );
@@ -58,10 +53,22 @@ public class WordCount {
     
   }
 
+  /**
+   * This is an internal method used for the merge sort algorthim. 
+   * This divides the list in half and then performs a mergesort
+   * on each respective half. After each half has been "sorted" correctly
+   * the halfs are re united to create a sorted list.
+   * 
+   * @param list a list that is needed to be sorted
+   * @return an StringCount array which is the sorted version of the given list. 
+   */
   private static StringCount[] mergeSort( StringCount[] list ) {
+	  //base case, if there is one item left, then there is no need to divide
 	  if ( list.length <=1 )
 		  return list;
+	  
 	  int mid = list.length / 2;
+	  
 	  StringCount[] left = new StringCount[ mid ];
 	  StringCount[] right = new StringCount[ list.length - mid ];
 
@@ -74,12 +81,27 @@ public class WordCount {
 	  
 	  left = mergeSort( left );
 	  right = mergeSort( right );
+	  
 	  return merge( left, right );
   }
+  
+  /**
+   * This is an internal method used for the merge sort algorthim.
+   * This combines two arrays into one in descending order.
+   * 
+   * @param left This represents the left list
+   * @param right This represents the right list
+   * @return This returns a new list containing the merged list of left and right.
+   */
   private static StringCount[] merge( StringCount[] left, StringCount[] right ) {
 	  StringCount[] list = new StringCount[ left.length  + right.length ];
+	  
+	  //counter used for merged list
 	  int listCounter = 0;
+	  
+	  //counters for the left and right list
 	  int i=0,j = 0;
+	  
 	  while ( i < left.length && j < right.length ) {
 		  if ( left[i].cnt > right[j].cnt ) {
 			  list[ listCounter ] = left[i];
@@ -92,6 +114,7 @@ public class WordCount {
 		  listCounter++;
 			
 	  }
+	  	//appends the remaining of any list (left or right) to the main list.
 		  if ( i != left.length ) {
 			  for ( ; i < left.length; i++) {
 				  list[ listCounter ] = left[ i ];
@@ -106,6 +129,7 @@ public class WordCount {
 			  }
 		  
 		  }
+		  
 		 return list;
   }
   
