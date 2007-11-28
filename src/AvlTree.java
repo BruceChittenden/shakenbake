@@ -5,10 +5,10 @@
 public class AvlTree implements StringCounter
 {
 	// Root of the tree
-	Node root;
+	private Node root;
 	
 	// Number of entries in the tree
-	int size;
+	private int size;
 	
 	// AvlTree
 	// initializes the root of the tree to null and the size of the tree to 0
@@ -266,13 +266,24 @@ public class AvlTree implements StringCounter
 		table.IncCount("TWELVE!!!");
 		
 		StringCount[] counts = table.GetCounts();
+		String output = "";
 		
 		for(int i = 0; i<counts.length; i++)
 		{
 			if(counts[i] != null)
+			{
 				System.out.print("[" + counts[i].str +"," + counts[i].cnt + "], ");
+				output += "[" + counts[i].str +"," + counts[i].cnt + "], ";
+			}
 			else
 				System.out.print("NULL!!!!! " + i);
 		}
+		
+		System.out.println();
+		
+		if(output.compareTo("[Assignment due,2], [Food,7], [Happy Thanksgiving!,3], [TWELVE!!!,5], [Wednesday,1], [at,1], [cool,1], [hello,2], [night,2], [world,4], ") == 0)
+			System.out.println("Success! Output is correct.");
+		else
+			System.out.println("Failure! The output wasn't correct. Output was: \"" + output +"\"");
 	}
 }

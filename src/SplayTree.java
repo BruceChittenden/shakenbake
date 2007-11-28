@@ -1,39 +1,64 @@
+// SplayTree
+// Eriel Thomas
+// This class is a Splay Tree that implements the StringCounter interface.
+
 public class SplayTree implements StringCounter
 {
-	Node root;
-	int size;
 	
+	// Root of the tree
+	private Node root;
+	
+	// Number of entries in the tree
+	private int size;
+	
+	// counter to help with the splaying
+	private int counter;
+	
+	// SplayTree
+	// initializes the root of the tree to null and the size of the tree to 0
 	public SplayTree()
 	{
 		root = null;
 		size = 0;
+		counter = 0;
 	}
 	
+	
+	// inner Node class
 	private class Node 
 	{
+		// left and right children
 		Node left, right;
+		
+		// the string key and the count of the number of occurences of that string
 		String str;
 		int cnt;
+		
+		// the height of the tree from that node down
+		int height;
 
+		// Node
+		// initializes the node and increment the size of the tree
 		Node(String s) 
 		{
 			str = s;
 			cnt = 1;
 			left = right = null;
-			size++; // note use of inner class
+			height = 0;
+			
+			size++; // note use of inner class	
 		}
 	}
 	
-	// IncCount increments the count for a particular string
+	// IncCount 
+	// increments the count for a particular string
 	public void IncCount(String s)
 	{
 		root = insert(s, root);
 		counter = 0;
 	}
 	
-	// counter to help with the splaying
-	private static int counter = 0;
-	
+	// insert
 	// recursive helper for IncCount
 	public Node insert(String s, Node root)
 	{
@@ -153,8 +178,8 @@ public class SplayTree implements StringCounter
 					
 					right.left = rightLeft.right;
 					
-					rightLeft.left = right;
-					rightLeft.right = top;
+					rightLeft.left = top;
+					rightLeft.right = right;
 					
 					root = rightLeft;
 				}
@@ -186,13 +211,15 @@ public class SplayTree implements StringCounter
 		}
 	}
 	
-	// GetSize returns the number of strings
+	// GetSize 
+	// returns the number of strings
 	public int GetSize()
 	{
 		return size;
 	}
 
-	// GetCounts returns an array of all the string-count pairs
+	// GetCounts 
+	// returns an array of all the string-count pairs
 	// in the dictionary, sorted lexicographically by strings.
 	// We've defined a StringCount container class
 	// above to store the String-int pairs.
@@ -203,7 +230,9 @@ public class SplayTree implements StringCounter
 		return counts;
 	}
 	
+	// GetCounts
 	// recursive helper for GetCounts
+	// traverses the tree and adds the strings and counts to the array of StringCount starting at index
 	private int GetCounts(Node root, StringCount[] counts, int index)
 	{
 		if(root == null)
@@ -219,11 +248,13 @@ public class SplayTree implements StringCounter
 		return index;
 	}
 	
+	// main
+	// a unit test to make sure that the AVL tree functions properly
 	public static void main(String[] args)
 	{
 		System.out.println("Splay Tree Testing");
 		
-		HashTable table = new HashTable();
+		SplayTree table = new SplayTree();
 		
 		table.IncCount("hello");
 		table.IncCount("hello");
@@ -232,36 +263,6 @@ public class SplayTree implements StringCounter
 		table.IncCount("world");
 		table.IncCount("world");
 		table.IncCount("world");
-		
-		table.IncCount("Happy Thanksgiving!");
-		table.IncCount("Happy Thanksgiving!");
-		table.IncCount("Happy Thanksgiving!");
-		
-		table.IncCount("Food");
-		table.IncCount("Food");
-		table.IncCount("Food");
-		table.IncCount("Food");
-		table.IncCount("Food");
-		table.IncCount("Food");
-		table.IncCount("Food");
-		
-		table.IncCount("cool");
-		
-		table.IncCount("Assignment due");
-		table.IncCount("Assignment due");
-		
-		table.IncCount("Wednesday");
-		
-		table.IncCount("night");
-		table.IncCount("night");
-		
-		table.IncCount("at");
-		
-		table.IncCount("TWELVE!!!");
-		table.IncCount("TWELVE!!!");
-		table.IncCount("TWELVE!!!");
-		table.IncCount("TWELVE!!!");
-		table.IncCount("TWELVE!!!");
 		
 		StringCount[] counts = table.GetCounts();
 		
@@ -271,6 +272,133 @@ public class SplayTree implements StringCounter
 				System.out.print("[" + counts[i].str +"," + counts[i].cnt + "], ");
 			else
 				System.out.print("NULL!!!!! " + i);
-		}		
+		}
+		
+		System.out.println();
+		
+		table.IncCount("Happy Thanksgiving!");
+		table.IncCount("Happy Thanksgiving!");
+		table.IncCount("Happy Thanksgiving!");
+		
+		counts = table.GetCounts();
+		
+		for(int i = 0; i<counts.length; i++)
+		{
+			if(counts[i] != null)
+				System.out.print("[" + counts[i].str +"," + counts[i].cnt + "], ");
+			else
+				System.out.print("NULL!!!!! " + i);
+		}
+		
+		System.out.println();
+		
+		table.IncCount("Food");
+		table.IncCount("Food");
+		table.IncCount("Food");
+		table.IncCount("Food");
+		table.IncCount("Food");
+		table.IncCount("Food");
+		table.IncCount("Food");
+		
+		counts = table.GetCounts();
+		
+		for(int i = 0; i<counts.length; i++)
+		{
+			if(counts[i] != null)
+				System.out.print("[" + counts[i].str +"," + counts[i].cnt + "], ");
+			else
+				System.out.print("NULL!!!!! " + i);
+		}
+		
+		System.out.println();
+		
+		table.IncCount("cool");
+		
+		// BREAKS HERE!!!
+		
+		counts = table.GetCounts();
+		
+		for(int i = 0; i<counts.length; i++)
+		{
+			if(counts[i] != null)
+				System.out.print("[" + counts[i].str +"," + counts[i].cnt + "], ");
+			else
+				System.out.print("NULL!!!!! " + i);
+		}
+		
+		System.out.println();
+		
+		table.IncCount("Assignment due");
+		table.IncCount("Assignment due");
+		
+		counts = table.GetCounts();
+		
+		for(int i = 0; i<counts.length; i++)
+		{
+			if(counts[i] != null)
+				System.out.print("[" + counts[i].str +"," + counts[i].cnt + "], ");
+			else
+				System.out.print("NULL!!!!! " + i);
+		}
+		
+		System.out.println();
+		
+		table.IncCount("Wednesday");
+		
+		counts = table.GetCounts();
+		
+		for(int i = 0; i<counts.length; i++)
+		{
+			if(counts[i] != null)
+				System.out.print("[" + counts[i].str +"," + counts[i].cnt + "], ");
+			else
+				System.out.print("NULL!!!!! " + i);
+		}
+		
+		System.out.println();
+		
+		table.IncCount("night");
+		table.IncCount("night");
+		
+		table.IncCount("at");
+		
+		counts = table.GetCounts();
+		
+		for(int i = 0; i<counts.length; i++)
+		{
+			if(counts[i] != null)
+				System.out.print("[" + counts[i].str +"," + counts[i].cnt + "], ");
+			else
+				System.out.print("NULL!!!!! " + i);
+		}
+		
+		System.out.println();
+		
+		table.IncCount("TWELVE!!!");
+		table.IncCount("TWELVE!!!");
+		table.IncCount("TWELVE!!!");
+		table.IncCount("TWELVE!!!");
+		table.IncCount("TWELVE!!!");
+		
+		counts = table.GetCounts();
+		String output = "";
+		
+		for(int i = 0; i<counts.length; i++)
+		{
+			if(counts[i] != null)
+			{
+				System.out.print("[" + counts[i].str +"," + counts[i].cnt + "], ");
+				output += "[" + counts[i].str +"," + counts[i].cnt + "], ";
+			}
+			else
+				System.out.print("NULL!!!!! " + i);
+		}
+		
+		System.out.println();
+		
+		if(output.compareTo("[Assignment due,2], [Food,7], [Happy Thanksgiving!,3], [TWELVE!!!,5], [Wednesday,1], [at,1], [cool,1], [hello,2], [night,2], [world,4], ") == 0)
+			System.out.println("Success! Output is correct.");
+		else
+			System.out.println("Failure! The output wasn't correct. Output was: \"" + output +"\"");
 	}
 }
