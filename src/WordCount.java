@@ -6,9 +6,7 @@
 
 public class WordCount {
 
-  public static void countWords(String file) {
-    StringCounter SC = new BST();
-
+  public static void countWords(String file, StringCounter SC) {    
     try {
       String word;
       FileWordReader fwr = new FileWordReader(file);
@@ -57,7 +55,20 @@ public class WordCount {
       System.exit(1);
     }
 
-    countWords(args[0]);
+//    countWords(args[0]);
 
   }
+	/**
+	 * Prints the Usage to standard error.
+	 */
+	private static void printUsage() {
+		System.err.println( " java WordCount [ -b | -a | -s | -h ] [ -frequency | -num_unique ] <filename>" );
+		System.err.println("\t-b    Use an Unbalanced BST to implement the StringCounter\n");
+		System.err.println("\t-a    Use an AVL Tree\n");
+		System.err.println("\t-s    Use a Splay Tree\n");
+		System.err.println("\t-frequency     Print all the word/frequency pairs, ordered by frequency, and then by the words in lexicographic order\n");
+		System.err.println("\t-num_unique     Print the number of unique words in the document.\n");
+		System.err.println("");
+		
+	}
 }
