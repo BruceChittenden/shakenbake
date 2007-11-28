@@ -45,17 +45,18 @@ public class WordCount {
     StringCount[] cnt = SC.GetCounts();
     if (cnt != null && freq) {
     	
-    	//create a mergesort
-      for (int i = 1; i < cnt.length; i++) {
-        StringCount x = cnt[i];
-        int j;
-        for (j = i-1; j >= 0; j--) {
-          if (cnt[j].cnt >= x.cnt)
-            break;
-          cnt[j+1] = cnt[j];
-        }
-        cnt[j+1] = x;
-      }
+//    	//create a mergesort
+//      for (int i = 1; i < cnt.length; i++) {
+//        StringCount x = cnt[i];
+//        int j;
+//        for (j = i-1; j >= 0; j--) {
+//          if (cnt[j].cnt >= x.cnt)
+//            break;
+//          cnt[j+1] = cnt[j];
+//        }
+//        cnt[j+1] = x;
+//      }
+      cnt = mergeSort ( cnt );
       for (int i = 0; i < cnt.length; i++)
         System.out.println(cnt[i].cnt + " \t" + cnt[i].str);
     } else if ( freq )
@@ -66,6 +67,57 @@ public class WordCount {
     
   }
 
+  private static StringCount[] mergeSort( StringCount[] list ) {
+	  if ( list.length <=1 )
+		  return list;
+	  int mid = list.length / 2;
+	  StringCount[] left = new StringCount[ mid ];
+	  StringCount[] right = new StringCount[ list.length - mid ];
+
+	  for (int i=0; i < list.length; i++) {
+		  if ( i < mid  )
+			  left[i] = list[i];
+		  else 
+			  right[i - mid] = list[i];
+	  }
+	  
+	  left = mergeSort( left );
+	  right = mergeSort( right );
+	  return merge( left, right );
+  }
+  private static StringCount[] merge( StringCount[] left, StringCount[] right ) {
+	  StringCount[] list = new StringCount[ left.length  + right.length ];
+	  int listCounter = 0;
+	  int i=0,j = 0;
+	  while ( i < left.length && j < right.length ) {
+		  if ( left[i].cnt > right[j].cnt ) {
+			  list[ listCounter ] = left[i];
+		  	  i++;
+		  }  else {
+			  list[ listCounter ] = right[j];
+		  	  j++;
+		  }
+		  
+		  listCounter++;
+			
+	  }
+		  if ( i != left.length ) {
+			  for ( ; i < left.length; i++) {
+				  list[ listCounter ] = left[ i ];
+				  listCounter++;
+			  }
+		  }
+		  
+		  if ( j != right.length ) {
+			  for ( ; j < right.length; j++) {
+				  list[ listCounter ] = right[ j ];
+				  listCounter++;
+			  }
+		  
+		  }
+		 return list;
+  }
+  
   public static void main(String[] args) {
     
 	StringCounter SC = null;
