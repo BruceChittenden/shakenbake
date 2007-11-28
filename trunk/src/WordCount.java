@@ -45,20 +45,11 @@ public class WordCount {
     StringCount[] cnt = SC.GetCounts();
     if (cnt != null && freq) {
     	
-//    	//create a mergesort
-//      for (int i = 1; i < cnt.length; i++) {
-//        StringCount x = cnt[i];
-//        int j;
-//        for (j = i-1; j >= 0; j--) {
-//          if (cnt[j].cnt >= x.cnt)
-//            break;
-//          cnt[j+1] = cnt[j];
-//        }
-//        cnt[j+1] = x;
-//      }
       cnt = mergeSort ( cnt );
+      
       for (int i = 0; i < cnt.length; i++)
         System.out.println(cnt[i].cnt + " \t" + cnt[i].str);
+    
     } else if ( freq )
       System.out.println("No words found!");
     
