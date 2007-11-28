@@ -1,21 +1,38 @@
+// AvlTree
+// Eriel Thomas
+// This class is an AVL Tree that implements the StringCounter interface.
+
 public class AvlTree implements StringCounter
 {
+	// Root of the tree
 	Node root;
+	
+	// Number of entries in the tree
 	int size;
 	
+	// AvlTree
+	// initializes the root of the tree to null and the size of the tree to 0
 	public AvlTree()
 	{
 		root = null;
 		size = 0;
 	}
 	
+	// inner Node class
 	private class Node 
 	{
+		// left and right children
 		Node left, right;
+		
+		// the string key and the count of the number of occurences of that string
 		String str;
 		int cnt;
+		
+		// the height of the tree from that node down
 		int height;
 
+		// Node
+		// initializes the node and increment the size of the tree
 		Node(String s) 
 		{
 			str = s;
@@ -27,13 +44,27 @@ public class AvlTree implements StringCounter
 		}
 	}
 	
-	// IncCount increments the count for a particular string
+	// IncCount 
+	// increments the count for a particular string
 	public void IncCount(String s)
 	{
 		root = insert(s, root);
 	}
 
-	// recursive helper for IncCount -- NOT DONE! DOESN'T BALANCE
+	// height
+	// a helper function to return the height of a node
+	public int height(Node node)
+	{
+		if(node == null)
+			return -1;
+		else
+			return node.height;
+	}
+	
+	// insert
+	// recursive helper for IncCount
+	// takes a string s to insert and a root to start at
+	// returns the new root after insertion of the string and balancing
 	public Node insert(String s, Node root)
 	{
 		if(root == null)
@@ -48,10 +79,10 @@ public class AvlTree implements StringCounter
 		{
 			root.left = insert(s, root.left);
 			
-			root.height = Math.max(root.left.height, root.right.height) + 1;
+			root.height = Math.max(height(root.left), height(root.right)) + 1;
 			
 			// check if we need to rotate
-			if(Math.abs(root.left.height - root.right.height) >= 2)
+			if(Math.abs(height(root.left) - height(root.right)) >= 2)
 			{
 				// check if it's zig-zig or zig-zag
 				if(s.compareTo(root.left.str) < 0)
@@ -67,8 +98,8 @@ public class AvlTree implements StringCounter
 					root = left;
 					
 					// fix heights
-					middle.height = Math.max(middle.left.height, middle.right.height) + 1;
-					left.height = Math.max(left.left.height, left.right.height) + 1;
+					middle.height = Math.max(height(middle.left), height(middle.right)) + 1;
+					left.height = Math.max(height(left.left), height(left.right)) + 1;
 				
 				}
 				else
@@ -87,20 +118,20 @@ public class AvlTree implements StringCounter
 					root = leftRight;
 					
 					//fix heights
-					middle.height = Math.max(middle.left.height, middle.right.height) + 1;
-					left.height = Math.max(left.left.height, left.right.height) + 1;
-					leftRight.height = Math.max(leftRight.left.height, leftRight.right.height) + 1;
+					middle.height = Math.max(height(middle.left), height(middle.right)) + 1;
+					left.height = Math.max(height(left.left), height(left.right)) + 1;
+					leftRight.height = Math.max(height(leftRight.left), height(leftRight.right)) + 1;
 				}
 			}
 			else
-				root.height = Math.max(root.left.height, root.right.height) + 1;
+				root.height = Math.max(height(root.left), height(root.right)) + 1;
 		}
 		else if(compare > 0)
 		{
 			root.right = insert(s, root.right);
 			
 			// check if we need to rotate
-			if(Math.abs(root.left.height - root.right.height) >= 2)
+			if(Math.abs(height(root.left) - height(root.right)) >= 2)
 			{
 				// check if it's zig-zig or zig-zag
 				if(s.compareTo(root.right.str) > 0)
@@ -116,8 +147,8 @@ public class AvlTree implements StringCounter
 					root = right;
 					
 					// fix heights
-					middle.height = Math.max(middle.left.height, middle.right.height) + 1;
-					right.height = Math.max(right.left.height, right.right.height) + 1;
+					middle.height = Math.max(height(middle.left), height(middle.right)) + 1;
+					right.height = Math.max(height(right.left), height(right.right)) + 1;
 				}
 				else
 				{
@@ -135,13 +166,13 @@ public class AvlTree implements StringCounter
 					root = rightLeft;
 					
 					//fix heights
-					middle.height = Math.max(middle.left.height, middle.right.height) + 1;
-					right.height = Math.max(right.left.height, right.right.height) + 1;
-					rightLeft.height = Math.max(rightLeft.left.height, rightLeft.right.height) + 1;
+					middle.height = Math.max(height(middle.left), height(middle.right)) + 1;
+					right.height = Math.max(height(right.left), height(right.right)) + 1;
+					rightLeft.height = Math.max(height(rightLeft.left), height(rightLeft.right)) + 1;
 				}
 			}
 			else
-				root.height = Math.max(root.left.height, root.right.height) + 1;
+				root.height = Math.max(height(root.left), height(root.right)) + 1;
 		}
 		else
 		{
@@ -151,13 +182,15 @@ public class AvlTree implements StringCounter
 		return root;
 	}
 	
-	// GetSize returns the number of strings
+	// GetSize 
+	// returns the number of strings
 	public int GetSize()
 	{
 		return size;
 	}
 
-	// GetCounts returns an array of all the string-count pairs
+	// GetCounts 
+	// returns an array of all the string-count pairs
 	// in the dictionary, sorted lexicographically by strings.
 	// We've defined a StringCount container class
 	// above to store the String-int pairs.
@@ -168,7 +201,9 @@ public class AvlTree implements StringCounter
 		return counts;
 	}
 	
+	// GetCounts
 	// recursive helper for GetCounts
+	// traverses the tree and adds the strings and counts to the array of StringCount starting at index
 	private int GetCounts(Node root, StringCount[] counts, int index)
 	{
 		if(root == null)
@@ -184,11 +219,13 @@ public class AvlTree implements StringCounter
 		return index;
 	}
 	
+	// main
+	// a unit test to make sure that the AVL tree functions properly
 	public static void main(String[] args)
 	{
 		System.out.println("AVL Tree Testing");
 		
-		HashTable table = new HashTable();
+		AvlTree table = new AvlTree();
 		
 		table.IncCount("hello");
 		table.IncCount("hello");
@@ -237,7 +274,5 @@ public class AvlTree implements StringCounter
 			else
 				System.out.print("NULL!!!!! " + i);
 		}
-		
-		
 	}
 }
