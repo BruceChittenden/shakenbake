@@ -57,7 +57,7 @@ public class WordCount {
    * This is an internal method used for the merge sort algorthim. 
    * This divides the list in half and then performs a mergesort
    * on each respective half. After each half has been "sorted" correctly
-   * the halfs are re united to create a sorted list.
+   * the halves are re united to create a sorted list.
    * 
    * @param list a list that is needed to be sorted
    * @return an StringCount array which is the sorted version of the given list. 
