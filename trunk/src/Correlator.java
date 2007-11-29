@@ -16,7 +16,7 @@
  */
 public class Correlator {
 
-	private static final double FREQ_MIN = 0.001;
+	private static final double FREQ_MIN = 0.0001;
 	private static final double FREQ_MAX = 0.01;
 	
 	/**
@@ -67,6 +67,9 @@ public class Correlator {
 	 * the two respective files. It prints out a correlation value that is based on LSI.
 	 */
 	public static void coorelate( String file1, String file2, StringCounter data, StringCounter data2  ) {
+
+
+		
 		
 		//counts the number of words and their respective frequency.
 		countWords ( file1, data );
@@ -86,27 +89,30 @@ public class Correlator {
 		
 				double frequency = ((double)sc.cnt) / data.GetSize();
 				double frequency2 = ((double)cnt2[ searchResult ].cnt ) / data2.GetSize();
+				
 				double difference =  Math.abs( frequency - frequency2 );
-				if ( frequency > FREQ_MIN && frequency < FREQ_MAX && frequency2 > FREQ_MIN && frequency2 < FREQ_MAX ) {
-				//if ( frequency > FREQ_MIN && frequency < FREQ_MAX && frequency2 > FREQ_MIN && frequency2 < FREQ_MAX ) {
-				//if ( difference > FREQ_MIN && difference < FREQ_MAX ){  
-					System.out.println( frequency + " > " + FREQ_MIN);
-					System.out.println( sc.str);
-					System.out.println( sc.cnt + " " +cnt2 [ searchResult ].cnt );
-					System.out.println( Math.pow( frequency - frequency2, 2.0 ) );
-					System.out.println();
-					sum +=  Math.pow( frequency2 - frequency, 2.0 );
+				if ( frequency >= FREQ_MIN && frequency <= FREQ_MAX && frequency2 >= FREQ_MIN && frequency2 <= FREQ_MAX ) {
+					sum +=  Math.pow(  difference , 2.0 );
 				}
 			}
 		}
-		System.out.println("Want 5.79912995261018E-4 ");
-		System.out.println( sum );
-		System.out.println("Hamlet word count: " + data.GetSize() );
-		System.out.println("Atlantis word count: " + data2.GetSize() );
 		
+		System.out.println( sum );
+		
+			
 	}
 	
-	
+	/**
+	 * This is an internal method used to perform a binary search on a list based
+	 * on the given key and indicies.
+	 * 
+	 * @param list The list to perform the search on
+	 * @param key The key to look for in the list
+	 * @param low The starting index to begin looking
+	 * @param high The ending index to stop looking
+	 * @return A positive integer, representing the index of the founded key. A negative integer if the key
+	 * is not existent in the list.
+	 */
 	private static int binarySearch(StringCount[] list, String key, int low, int high) {
 		while (low <= high) {
 			int mid = (low + high) / 2;
@@ -123,6 +129,13 @@ public class Correlator {
 		return -(low + 1); // key not found.
 	}
 
+	/**
+	 * This is an internal method used to count the number of words
+	 * in a given file and stores them in a StringCounter ADT.
+	 * 
+	 * @param file The given filename to open and perform the read on.
+	 * @param SC The ADT used to hold the counting of words.
+	 */
 	private static void countWords( String file, StringCounter SC ) {
 		 try {
 		      String word;
@@ -135,6 +148,7 @@ public class Correlator {
 		    }
 
 	}
+	
 	/**
 	 * Prints the Usage to standard error.
 	 */
