@@ -89,12 +89,8 @@ public class Correlator {
 				double difference =  Math.abs( frequency - frequency2 );
 				//if ( frequency > FREQ_MIN && frequency < FREQ_MAX ) {
 				//if ( frequency > FREQ_MIN && frequency < FREQ_MAX && frequency2 > FREQ_MIN && frequency2 < FREQ_MAX ) {
-				if ( difference> FREQ_MIN && difference < FREQ_MAX ) { 
-					sum +=  Math.pow( frequency2 - frequency, 2.0);
-					//normalized frequency	
-				}	
-					
-				
+				if ( difference> FREQ_MIN && difference < FREQ_MAX )  
+					sum +=  Math.pow( frequency2 - frequency, 2.0);		
 			}
 		}
 
