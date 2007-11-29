@@ -1,7 +1,7 @@
 /**
  * Alex Meng
  * CSE326 Project 3
- * File: Coorelator.java
+ * File: Correlator.java
  * 
  * This class is designed to find a correlation between two given files based on the frequency of words.
  * 
@@ -16,6 +16,9 @@
  */
 public class Correlator {
 
+	private static final double FREQ_MIN = 0.0001;
+	private static final double FREQ_MAX = 0.01;
+	
 	/**
 	 * @param args
 	 */
@@ -64,6 +67,7 @@ public class Correlator {
 	 * the two respective files. It prints out a correlation value that is based on LSI.
 	 */
 	public static void coorelate( String file1, String file2, StringCounter data, StringCounter data2  ) {
+		
 		//counts the number of words and their respective frequency.
 		countWords ( file1, data );
 		//counts the number of words and their respective frequency.
@@ -73,22 +77,33 @@ public class Correlator {
 		StringCount[] cnt2 = data2.GetCounts();
 		
 		//retrieves the total number of unique words
-		int total1 = cnt.length;
-		int total2 = cnt2.length;
+		double total1 = data.GetSize();
+		double total2 = data2.GetSize();
 		
-		double freq, freq2;
-		double sum =0 ;
+		
+		
+		double sum = 0 ;
+		int searchResult;
 		for ( StringCount sc : cnt ) {
-			int searchResult = binarySearch ( cnt2, sc.str, 0, cnt2.length-1 );
+			//searches the second list for the current string
+			searchResult = binarySearch ( cnt2, sc.str, 0, cnt2.length-1 );
+			
 			if ( searchResult > -1 ) {				
-				freq = sc.cnt / (double) total1;
-				freq2 = cnt2[searchResult].cnt / (double) total2;
-				if ( Math.abs( freq - freq2 ) <= .01 && Math.abs( freq - freq2 ) > .0001 )
-					sum += Math.pow( Math.abs( freq - freq2 ), 2 );
+		
+				//normalized frequency
+				double freq = sc.cnt / total1;
+				double freq2 = cnt2[ searchResult ].cnt / total2;
+								
+				//System.out.println( sc.cnt + " " + cnt2[ searchResult ].cnt );
+				if ( freq  >= FREQ_MIN && freq  <= FREQ_MAX ) {
+					System.out.println ( sc.str  );
+					sum +=  Math.pow( freq2-freq, 2.0);
+				}
 			}
 		}
-		//Prints out the correlation value which ranges [0.0, 1.0]
+		//Prints out the correlation value which ranges between [FREQ_MIN,FREQ_MAX]
 		System.out.println( sum  );
+		
 	}
 	
 	
