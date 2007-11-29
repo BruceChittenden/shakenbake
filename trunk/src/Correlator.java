@@ -72,9 +72,9 @@ public class Correlator {
 		
 		
 		//counts the number of words and their respective frequency.
-		countWords ( file1, data );
+		int size = countWords ( file1, data );
 		//counts the number of words and their respective frequency.
-		countWords ( file2, data2 );
+		int size2 = countWords ( file2, data2 );
 		
 		StringCount[] cnt = data.GetCounts();
 		StringCount[] cnt2 = data2.GetCounts();
@@ -87,8 +87,8 @@ public class Correlator {
 			
 			if ( searchResult > -1 ) {				
 		
-				double frequency = ((double)sc.cnt) / data.GetSize();
-				double frequency2 = ((double)cnt2[ searchResult ].cnt ) / data2.GetSize();
+				double frequency = ((double)sc.cnt) / size;
+				double frequency2 = ((double)cnt2[ searchResult ].cnt ) / size2;
 				
 				double difference =  Math.abs( frequency - frequency2 );
 				if ( frequency >= FREQ_MIN && frequency <= FREQ_MAX && frequency2 >= FREQ_MIN && frequency2 <= FREQ_MAX ) {
@@ -136,16 +136,20 @@ public class Correlator {
 	 * @param file The given filename to open and perform the read on.
 	 * @param SC The ADT used to hold the counting of words.
 	 */
-	private static void countWords( String file, StringCounter SC ) {
+	private static int countWords( String file, StringCounter SC ) {
+		int numWords = 0;
 		 try {
 		      String word;
 		      FileWordReader fwr = new FileWordReader(file);
-		      while((word=fwr.nextWord())!=null)
+		      while((word=fwr.nextWord())!=null) {
 		        SC.IncCount(word);
+		        numWords++;
+		      }
 		    } catch (Throwable error) {
 		      System.err.println( "Error processing \n" + file + error);
 		      System.exit(1);
 		    }
+		 return numWords;
 
 	}
 	
