@@ -75,34 +75,32 @@ public class Correlator {
 		
 		StringCount[] cnt = data.GetCounts();
 		StringCount[] cnt2 = data2.GetCounts();
-		
-		//retrieves the total number of unique words
-		double total1 = data.GetSize();
-		double total2 = data2.GetSize();
-		
-		
-		
+				
 		double sum = 0 ;
 		int searchResult;
 		for ( StringCount sc : cnt ) {
 			//searches the second list for the current string
-			searchResult = binarySearch ( cnt2, sc.str, 0, cnt2.length-1 );
+			searchResult = binarySearch ( cnt2, sc.str, 0, cnt2.length -1 );
 			
 			if ( searchResult > -1 ) {				
 		
-				//normalized frequency
-				double freq = sc.cnt / total1;
-				double freq2 = cnt2[ searchResult ].cnt / total2;
-								
-				//System.out.println( sc.cnt + " " + cnt2[ searchResult ].cnt );
-				if ( freq  >= FREQ_MIN && freq  <= FREQ_MAX ) {
-					System.out.println ( sc.str  );
-					sum +=  Math.pow( freq2-freq, 2.0);
-				}
+				double frequency = ((double)sc.cnt) / data.GetSize();
+				double frequency2 = ((double)cnt2[ searchResult ].cnt ) / data2.GetSize();
+				double difference =  Math.abs( frequency - frequency2 );
+				//if ( frequency > FREQ_MIN && frequency < FREQ_MAX ) {
+				//if ( frequency > FREQ_MIN && frequency < FREQ_MAX && frequency2 > FREQ_MIN && frequency2 < FREQ_MAX ) {
+				if ( difference> FREQ_MIN && difference < FREQ_MAX ) { 
+					sum +=  Math.pow( frequency2 - frequency, 2.0);
+					//normalized frequency	
+				}	
+					
+				
 			}
 		}
-		//Prints out the correlation value which ranges between [FREQ_MIN,FREQ_MAX]
-		System.out.println( sum  );
+
+		System.out.println( sum );
+		System.out.println("Hamlet word count: " + data.GetSize() );
+		System.out.println("Atlantis word count: " + data2.GetSize() );
 		
 	}
 	
