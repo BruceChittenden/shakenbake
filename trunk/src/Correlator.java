@@ -3,15 +3,15 @@
  * CSE326 Project 3
  * File: Coorelator.java
  * 
- * This class is designed to find a coorelation between two given files based on the frequency of words.
+ * This class is designed to find a correlation between two given files based on the frequency of words.
  * 
  * @author alexm
  */
 
 /**
  * 
- * The Coorelator class is intended to be used to compare two text files and create a list of words and their frequency
- * in the text file. After counting, it attempts to find any coorelation between the freqency of words amongst the
+ * The Correlator class is intended to be used to compare two text files and create a list of words and their frequency
+ * in the text file. After counting, it attempts to find any correlation between the frequency of words amongst the
  * two files.
  */
 public class Correlator {
@@ -60,8 +60,8 @@ public class Correlator {
 	}
 
 	/**
-	 * This counts the frequency of words for each respective file then attempts to find a coorelation between
-	 * the two respective files. It prints out a coorelation value that is based on LSI.
+	 * This counts the frequency of words for each respective file then attempts to find a correlation between
+	 * the two respective files. It prints out a correlation value that is based on LSI.
 	 */
 	public static void coorelate( String file1, String file2, StringCounter data, StringCounter data2  ) {
 		//counts the number of words and their respective frequency.
@@ -87,8 +87,8 @@ public class Correlator {
 					sum += Math.pow( Math.abs( freq - freq2 ), 2 );
 			}
 		}
-		//Prints out the coorelation value which ranges [0.0, 1.0]
-		System.out.println("Coorelate: " + sum  );
+		//Prints out the correlation value which ranges [0.0, 1.0]
+		System.out.println( sum  );
 	}
 	
 	
