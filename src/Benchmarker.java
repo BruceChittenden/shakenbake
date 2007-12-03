@@ -5,43 +5,62 @@ public class Benchmarker {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
+
+		//makes sure 3 parameters are 
 		if ( args.length < 3 ) {
 			printUsage();
 			System.exit(1);
 		}
-		
-		int numTrials=Integer.parseInt(args[0]);
+
+		int numTrials = 0;
+
+		//attempts to convert argument to integer
+		try {
+			numTrials=Integer.parseInt(args[0]);
+		}	catch (Exception e) {
+			System.err.println("The integer for the number of trials provided is not valid.");
+		}
+
 		StringCounter dstruct = null;
 		String datatype="";
-		   if( args[1].equals("-b") ) { 		
-				dstruct = new BST();
-				datatype="Binary Search Tree";
-		   	}
-			else if( args[1].equals("-a") ) 	{	
-				dstruct = new AvlTree();
-				datatype="AVL Tree";
-			}
-			else if( args[1].equals("-s") ) { 
-				dstruct = new SplayTree();	
-				datatype="Splay Tree";
-			}
-			else if( args[1].equals("-h") ) { 
-				dstruct = new HashTable();
-				datatype="Hash table";
-			}
-			else {
-				printUsage();
-				System.exit(1);
-			}
-		
-		 String filename = args[2];
-		 double avg = performTest( numTrials, dstruct, filename );
-		 System.out.print("Average time for " + datatype +" with "+ numTrials +" trials: ");
-		 System.out.println( avg );
+
+		if( args[1].equals("-b") ) { 		
+			dstruct = new BST();
+			datatype="Binary Search Tree";
+		}
+		else if( args[1].equals("-a") ) 	{	
+			dstruct = new AvlTree();
+			datatype="AVL Tree";
+		}
+		else if( args[1].equals("-s") ) { 
+			dstruct = new SplayTree();	
+			datatype="Splay Tree";
+		}
+		else if( args[1].equals("-h") ) { 
+			dstruct = new HashTable();
+			datatype="Hash table";
+		}
+		else {
+			printUsage();
+			System.exit(1);
+		}
+
+		String filename = args[2];
+		double avg = performTest( numTrials, dstruct, filename );
+		System.out.print("Average time for " + datatype +" with "+ numTrials +" trials: ");
+		System.out.println( avg );
 
 	}
 
+	/**
+	 * This is an internal method used to perform benchmark testing. The
+	 * result is a the number of seconds to perform a task 'limit' times.
+	 * 
+	 * @param limit - The number of times to perform the test.
+	 * @param data The data structure to be used during testing.
+	 * @param file The file to be used for the method
+	 * @return a double, representing the average time in seconds it took to perform a method 'limit' times.
+	 */
 	private static double performTest( int limit, StringCounter data, String file ){
 		long timeSum=0, tempStart, tempEnd;
 		while ( limit > 0) {		
@@ -49,15 +68,15 @@ public class Benchmarker {
 			WordCount.countWords( file, data, true, false);
 			tempEnd = System.nanoTime();
 			timeSum += (tempEnd - tempStart);
-			
+
 			limit--;
 		}
 		return timeSum / 1000000000.0;
-		
-		
+
+
 	}
-			
-	
+
+
 	/**
 	 * Prints the usage of this application to standard error.
 	 */
@@ -70,6 +89,6 @@ public class Benchmarker {
 		System.err.println("\t-h    Use a Hash Table\n");
 		System.err.println("\t filename The name of the file to use for counting.\n");
 		System.err.println("");
-		
+
 	}
 }
