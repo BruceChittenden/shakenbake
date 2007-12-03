@@ -130,11 +130,13 @@ public class Correlator {
 	}
 
 	/**
-	 * This is an internal method used to count the number of words
-	 * in a given file and stores them in a StringCounter ADT.
+	 * This is an internal method used to count the frequency of words
+	 * in a given file and stores them in a StringCounter ADT and returns
+	 * the number of words in the given file
 	 * 
 	 * @param file The given filename to open and perform the read on.
 	 * @param SC The ADT used to hold the counting of words.
+	 * @return an integer representing the number of words in the given file.
 	 */
 	private static int countWords( String file, StringCounter SC ) {
 		int numWords = 0;
