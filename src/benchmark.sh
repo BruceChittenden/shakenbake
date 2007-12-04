@@ -21,18 +21,17 @@ then
     exit 1
 fi
 
-temp='test'
+temp=`mktmp`
 
 while [ $count -lt $1 ]
 do
-  real='time ./count.sh $file 2> $temp'
-  `$real 2> $temp`
-  time=`cat $temp | grep real`
-  echo "$time"
+  real=`time ./count.sh $file 2>$temp`
+  #time=`cat $temp | grep real`
+  echo "$real"
   ((count=count+1))
 done
 
-#rm $temp
+rm -f $temp
 
 
 exit 0
