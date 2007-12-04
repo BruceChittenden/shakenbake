@@ -173,6 +173,7 @@ public class WordCount {
     	unique = true;
     }
     
+  
     //counts the number of words in the given file.
     countWords( args[i], SC, freq, unique );
 
@@ -190,4 +191,5 @@ public class WordCount {
 		System.err.println("");
 		
 	}
+	
 }
