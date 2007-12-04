@@ -63,6 +63,7 @@ public class Benchmarker {
 	 */
 	private static double performTest( int limit, StringCounter data, String file ){
 		long timeSum=0, tempStart, tempEnd;
+		final int trial = limit;
 		while ( limit > 0) {		
 			tempStart = System.nanoTime();
 			WordCount.countWords( file, data, true, false);
@@ -71,7 +72,7 @@ public class Benchmarker {
 
 			limit--;
 		}
-		return timeSum / 1000000000.0;
+		return timeSum / 1000000000.0 / trial;
 
 
 	}

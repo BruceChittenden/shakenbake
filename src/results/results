@@ -1,0 +1,5 @@
+Hamlet
+Average time for Binary Search Tree with 100 trials: 0.13664012
+Average time for AVL Tree with 100 trials: 0.15528262
+Average time for Splay Tree with 100 trials: 0.14869935
+
