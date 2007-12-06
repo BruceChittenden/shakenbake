@@ -11,9 +11,18 @@ Average time for Hash table with 20 trials: 15.42814850785
 
 Moby-Dick is based on the Hendricks House edition
 Average time for Binary Search Tree with 20 trials: 0.40799718929999995
+Average time for AVL Tree with 20 trials: 0.45848438135
+Average time for Splay Tree with 20 trials: 0.4752694931
 Average time for Hash table with 20 trials: 21.91142246775
+Average time for Hash table with 20 trials: 10.4063821136
 
 The Project Gutenberg EBook of The Outline of Science, Vol. 1 (of 4), by
 J. Arthur Thomson
 
+Average time for Splay Tree with 20 trials: 0.30214130925
+
 The Project Gutenberg Etext of The New Atlantis by Francis Bacon
+Average time for Binary Search Tree with 20 trials: 0.05286678535
+Average time for AVL Tree with 20 trials: 0.05850424085
+Average time for Splay Tree with 20 trials: 0.05898831415
+Average time for Hash table with 20 trials: 1.2115976263500001
