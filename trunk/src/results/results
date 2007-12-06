@@ -1,5 +1,19 @@
 Hamlet
-Average time for Binary Search Tree with 100 trials: 0.13664012
-Average time for AVL Tree with 100 trials: 0.15528262
-Average time for Splay Tree with 100 trials: 0.14869935
+Average time for Binary Search Tree with 20 trials: 0.13664012
+Average time for AVL Tree with 20 trials: 0.15528262
+Average time for Splay Tree with 20 trials: 0.14869935
 
+Manners, Custom and Dress During the Middle Ages and During the Renaissance Period, by Paul Lacroix
+Average time for Binary Search Tree with 20 trials: 0.32639592815
+Average time for AVL Tree with 20 trials: 0.35348249909999996
+Average time for Splay Tree with 20 trials: 0.36853563445000004
+Average time for Hash table with 20 trials: 15.42814850785
+
+Moby-Dick is based on the Hendricks House edition
+Average time for Binary Search Tree with 20 trials: 0.40799718929999995
+Average time for Hash table with 20 trials: 21.91142246775
+
+The Project Gutenberg EBook of The Outline of Science, Vol. 1 (of 4), by
+J. Arthur Thomson
+
+The Project Gutenberg Etext of The New Atlantis by Francis Bacon
