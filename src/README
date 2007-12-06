@@ -1,0 +1,26 @@
+1.	Who is in your group?
+Our group consists of Eriel Thomas and Alex Meng.
+2.	Acknowledgment of any assistance you received from anyone or anywhere but your team members, the 326 staff, or the Weiss book.
+There was no outside assistance on this project.
+3.	How long do we think the project will take? (answer before starting)
+I believe the project will take a combined total of 20 hours for all the work.
+4.	How long did the project take?
+This project took us approximately 25 hours.
+5.	Which sorting algorithm did you implement for WordCount? Why? Under what circumstances might other sorting algorithms work better?
+Mergesort was implemented for WordCount because it is the simplest O(nlogn) sorting algorithm to implement. If memory was an issue, an in place sorting algorithm such as median of three quicksort might work better.
+6.	Which data structure do you expect will be the fastest? (answer before starting) 
+We expect that the hash table will be the fastest data structure since inserting and accessing is O(1). 
+7.	Which data structure is the fastest? Why were you right or wrong?
+The fastest data structure identify by our benchmarks was the binary search tree. Our expected data structure was wrong. 
+8.	In general, which StringCounter dictionary implementation was "better": trees or hash tables? Note that you will need to define "better" (ease of coding, ease of debugging, memory usage, disk access patterns, runtime for average input, runtime for all input, etc). 
+The hash table was a better implementation of the StringCounter dictionary. This is primarily due to the ease of coding and debugging. The hash table is simply a large array with a predefined access method. This makes checking what things are in the array very simple and leads to simple debugging to be sure everything is in its proper place. Also, the implementation is simple and lacks pointer manipulation. The lack of pointer manipulation makes the overall process simpler than trees because entries aren’t lost as easily and the structure is harder to break. Also, the hash table is composed of a simple operation for insertion rather than multiple sub cases as in the trees. Finally, the insertion and find operations for the hash table are much more efficient than the trees insertion and find operations because the insert and find for the hash table are O(1). Although the memory usage of the hash table can be greater in most cases than the equivalent tree dictionary, the simplicity in implementation and debugging coupled with the superior performance of the hash table in comparison to the tree makes the hash table a better implementation.
+9.	Are there cases in which a particular data structure performs really well or badly in the correlator? Enumerate the cases for each data structure.
+It was interesting to observe the AVL tree appear to be run better when used for correlation rather than word counting. When an AVL Tree is used for word counting, it takes more time than the Splay Tree. However, when an AVL is used for correlation, it appears to take less time than the Splay tree.
+Also, I observed the hash table perform horribly when it was used by the correlator. Analyzing the time it took to complete the correlator, the worst time it yielded 76.499 seconds while the worst time any of the other data structures yielded was .509 seconds.
+10.	Give a one to two paragraph explanation of whether or not you think Bacon wrote Shakespeare's plays based on the data you collected. No fancy statistical analysis here (formal analysis comes later); keep it fun and simple. 
+I do not believe Bacon wrote Shakesspeare’s play based on the data I collected. This is because the value returned from the correlator was very low in my opinion. It was .05%. After altering the normalized frequency range to [.001,.10] the correlation value was only 2%. In my opinion, 2% is not a strong correlation. So based on this fact, I do not believe Bacon wrote Shakespeare’s plays.
+11.	Give a detailed description of all Above and Beyond projects which you implemented. What did you find most challenging about the projects you implemented? What did you find most interesting? 
+We do attempt at any Above and Beyond projects.
+12.	 Please see the benchmark analysis report:Bechmark Analysis for Project3.doc.
+13.	What did you enjoy about this assignment? What did you hate? Could we have done anything better? 
+What was enjoyable about this assignment was creating the data structures. It was also interesting to observe theoretical data structures implemented and witness the benefits of using different data structures. It was also interesting to observe the use of data structures to solve practical problems.
