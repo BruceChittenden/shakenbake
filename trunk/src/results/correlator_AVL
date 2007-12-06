@@ -1,0 +1,155 @@
+hamlet.txt comparing against all files
+
+Correlating 
+File1: hamlet.txt
+File2: manners-middle.txt
+Data structure: AVL Tree
+8.252277735451581E-4
+Time elapsed: 0.412454 seconds.
+
+Correlating 
+File1: hamlet.txt
+File2: moby.txt
+Data structure: AVL Tree
+0.001102334982725601
+Time elapsed: 0.504684 seconds.
+
+Correlating 
+File1: hamlet.txt
+File2: outline-science.txt
+Data structure: AVL Tree
+0.0019735603126295785
+Time elapsed: 0.301828 seconds.
+
+Correlating 
+File1: hamlet.txt
+File2: the-new-atlantis.txt
+Data structure: AVL Tree
+0.012905105576628714
+Time elapsed: 0.132742 seconds.
+
+
+manners-middle.txt comparing against all files
+
+Correlating 
+File1: manners-middle.txt
+File2: hamlet.txt
+Data structure: AVL Tree
+0.00934221426685166
+Time elapsed: 0.425158 seconds.
+
+Correlating 
+File1: manners-middle.txt
+File2: moby.txt
+Data structure: AVL Tree
+9.164269476172346E-4
+Time elapsed: 0.765268 seconds.
+
+Correlating 
+File1: manners-middle.txt
+File2: outline-science.txt
+Data structure: AVL Tree
+0.002878168552538668
+Time elapsed: 0.582205 seconds.
+
+Correlating 
+File1: manners-middle.txt
+File2: the-new-atlantis.txt
+Data structure: AVL Tree
+0.02592698475459171
+Time elapsed: 0.358736 seconds.
+
+
+moby.txt comparing against all files
+
+Correlating 
+File1: moby.txt
+File2: hamlet.txt
+Data structure: AVL Tree
+0.014698678425087661
+Time elapsed: 0.54665 seconds.
+
+Correlating 
+File1: moby.txt
+File2: manners-middle.txt
+Data structure: AVL Tree
+4.462836262174269E-4
+Time elapsed: 0.758936 seconds.
+
+Correlating 
+File1: moby.txt
+File2: outline-science.txt
+Data structure: AVL Tree
+0.0017718448698817006
+Time elapsed: 0.659847 seconds.
+
+Correlating 
+File1: moby.txt
+File2: the-new-atlantis.txt
+Data structure: AVL Tree
+0.045987635741767376
+Time elapsed: 0.493354 seconds.
+
+
+outline-science.txt comparing against all files
+
+Correlating 
+File1: outline-science.txt
+File2: hamlet.txt
+Data structure: AVL Tree
+0.011121599663654728
+Time elapsed: 0.325876 seconds.
+
+Correlating 
+File1: outline-science.txt
+File2: manners-middle.txt
+Data structure: AVL Tree
+0.003914808336757819
+Time elapsed: 0.561542 seconds.
+
+Correlating 
+File1: outline-science.txt
+File2: moby.txt
+Data structure: AVL Tree
+0.005569757107567909
+Time elapsed: 0.673127 seconds.
+
+Correlating 
+File1: outline-science.txt
+File2: the-new-atlantis.txt
+Data structure: AVL Tree
+0.05267706049597638
+Time elapsed: 0.319533 seconds.
+
+
+the-new-atlantis.txt comparing against all files
+
+Correlating 
+File1: the-new-atlantis.txt
+File2: hamlet.txt
+Data structure: AVL Tree
+0.037427362904756456
+Time elapsed: 0.148378 seconds.
+
+Correlating 
+File1: the-new-atlantis.txt
+File2: manners-middle.txt
+Data structure: AVL Tree
+0.0814953274961433
+Time elapsed: 0.383583 seconds.
+
+Correlating 
+File1: the-new-atlantis.txt
+File2: moby.txt
+Data structure: AVL Tree
+0.08394010604657944
+Time elapsed: 0.509039 seconds.
+
+Correlating 
+File1: the-new-atlantis.txt
+File2: outline-science.txt
+Data structure: AVL Tree
+0.07330360687485037
+Time elapsed: 0.287593 seconds.
+
+
