@@ -138,7 +138,7 @@ public class Correlator {
 	 * @param SC The ADT used to hold the counting of words.
 	 * @return an integer representing the number of words in the given file.
 	 */
-	private static int countWords( String file, StringCounter SC ) {
+	public static int countWords( String file, StringCounter SC ) {
 		int numWords = 0;
 		 try {
 		      String word;
